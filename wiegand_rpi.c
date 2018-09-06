@@ -187,15 +187,15 @@ void show_code() {
     fflush(stdout);
 
 	if (wds.facility_code>0) {
-		digitalWrite (options.allowedPin, 1); //turn LED (lock) off (0 and 1 back to front here...)
+		digitalWrite (options.allowedPin, 1); //open the gate signal to relay..
  printf("*** Sening Allowed Signal to pin: %d \n", options.allowedPin);
 		delay(100);
-		digitalWrite (options.allowedPin, 0); //turn LED (lock) off (0 and 1 back to front here...)
+		digitalWrite (options.allowedPin, 0); //turn off open the gate signal to relay
 	} else {
-		digitalWrite (options.deniedPin, 1); //turn LED (lock) off (0 and 1 back to front here...)
+		digitalWrite (options.deniedPin, 1); //turn LED -deny access on.
  printf("*** Sening DENIED Signal to pin: %d \n", options.deniedPin);
-		delay(10);
-		digitalWrite (options.deniedPin, 0); //turn LED (lock) off (0 and 1 back to front here...)
+		delay(1000);
+		digitalWrite (options.deniedPin, 0); //turn LED led off
 	}
 	delay (30);
 }
