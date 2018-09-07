@@ -20,7 +20,7 @@
  * P: odd parity of rightmost 12 N-bits
 
  DATA 0 green wire from receiver to pin 3 - GPIO2 - SDA which is wPI pin 8
- DATA 1 white wire from receiver to pin 5 - GPIO3 - SCL which is wPI pin 8
+ DATA 1 white wire from receiver to pin 5 - GPIO3 - SCL which is wPI pin 9
  
  must enable SPI in raspberry pi configuration in the desktop menu.
  
