@@ -2,22 +2,10 @@
 
  * Wiegand data reader with Raspberry Pi
 
- * SANCUTARY GATE CONTROLLER - universal receiver
+ * SANCUTARY GATE CONTROLLER
  
- v0.02 - 
+ v0.01
 
-  - This uses the universal receiver with the old 295 mhz receiver and a 300 mhz dip switch receiver.
-  - if dip switch matches, it activates the relay in the universal receiver box.  
-  -   gnd hooked up to common on the UR, this is sent to input on the relay connected to the PI
-		that controls the door.
-	- the two channels are hooked up to the same wire that goes to the gate operator.
-	- when the black and red wire connect to the gate operator, it opens the gate.
-	
-	parts: pi b3+, RCS UR with 295mhz and 300mhz receivers. 
-	 -SMAKN® 5V Active Low 2 Channel Relay Shield Module for Arduino UNO 2560 1280 ARM PIC AVR STM32 Raspberry Pi
-	 -12v to 5v convertor for Pi -- 12v to microusb
-	 -12v 4 amp voltage regulator / surge supressor
-	
  *
  * Wiegand Bits:
 
@@ -59,6 +47,7 @@
  
  
  */
+
 
 
 #include <stdio.h>
@@ -109,7 +98,7 @@
 
 /* Each bit takes 4-6 usec, so all 26 bit sequence would take < 200usec */
 
-#define WIEGAND_BIT_INTERVAL_TIMEOUT_USEC 5000 /* interval between bits, typically 1000us */
+#define WIEGAND_BIT_INTERVAL_TIMEOUT_USEC 20000 /* interval between bits, typically 1000us */
 
 
 
@@ -195,7 +184,7 @@ void show_code() {
 
     printf("*** Parity 0:%d Parity 1:%d\n", wds.p0, wds.p1);
 
-    fflush(stdout);
+    
 
 	if (wds.facility_code>9) {
 		digitalWrite (options.allowedPin, 0); //open the gate signal to relay..
@@ -205,10 +194,11 @@ void show_code() {
 	} else {
 		digitalWrite (options.deniedPin, 1); //turn LED -deny access on.
  printf("*** Sening DENIED Signal to pin: %d \n", options.deniedPin);
-		delay(1000);
+		delay(500);
 		digitalWrite (options.deniedPin, 0); //turn LED led off
 	}
 	delay (30);
+fflush(stdout);
 }
 
 
