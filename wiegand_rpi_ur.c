@@ -4,7 +4,7 @@
 
  * SANCUTARY GATE CONTROLLER
  
- v0.01
+ v0.03
 
  *
  * Wiegand Bits:
@@ -24,6 +24,8 @@
  
  must enable SPI in raspberry pi configuration in the desktop menu.
  
+ sanctuary facility_codes are usually 31 but can be 30 or 32..
+	if (wds.facility_code>28 && wds.facility_code<35) { open gate } .. adjust open gate conditon here.
  
  #define ALLOWED_PIN 4  (wiringPi pin 4 which is physical pin 16)  - the code in function "show_code()" sends a signal to the relay on this pin to open if the code is valid.
 #define DENIED_PIN 5 - physical pin 18 - used to turn a deny LED on.. if hooked up.
@@ -98,7 +100,7 @@
 
 /* Each bit takes 4-6 usec, so all 26 bit sequence would take < 200usec */
 
-#define WIEGAND_BIT_INTERVAL_TIMEOUT_USEC 20000 /* interval between bits, typically 1000us */
+#define WIEGAND_BIT_INTERVAL_TIMEOUT_USEC 35000 /* interval between bits, typically 1000us */
 
 
 
@@ -186,7 +188,7 @@ void show_code() {
 
     
 
-	if (wds.facility_code>9) {
+	if (wds.facility_code>28 && wds.facility_code<35) {
 		digitalWrite (options.allowedPin, 0); //open the gate signal to relay..
  printf("*** Sening Allowed Signal to pin: %d \n", options.allowedPin);
 		delay(500);
